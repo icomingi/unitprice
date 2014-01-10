@@ -4,7 +4,7 @@ def app(environ, start_response):
     status = '200 OK'
     headers = [('Content-type', 'text/html')]
     start_response(status, headers)
-    body=["Welcome to Baidu Cloud!\n"]
+    body=["Welcome to Alex's Web App!\n", "激动人心"]
     return body
 
 from bae.core.wsgi import WSGIApplication
