@@ -11,7 +11,7 @@ def app(environ, start_response):
     start_response(status, headers)
     body = {'x': 11, 'y': 12, 'z': 13}
     parser = ProdInfoParser()
-    parser.feed(getContent(TEST_URL))
+#    parser.feed(getContent(TEST_URL))
     parser.close()
 #    body = parser.output()
     return json.dumps(body)
