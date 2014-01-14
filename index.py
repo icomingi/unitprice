@@ -3,17 +3,17 @@ import json
 import urllib
 from html_test import ProdInfoParser
 
-TEST_URL = r'http://www.yhd.com/ctg/s2/c33699-0/?ref=gl.1.1.1.[CatMenu_Site_100000003_24166].0.EHKgJo'
+TEST_URL = r'http://www.yhd.com/ctg/s2/c33708-0/'
 
 def app(environ, start_response):
     status = '200 OK'
     headers = [('Content-type', 'application/json')]
     start_response(status, headers)
-    body = {'x': 11, 'y': 12, 'z': 13}
+#    body = {'x': 11, 'y': 12, 'z': 13}
     parser = ProdInfoParser()
-#    parser.feed(getContent(TEST_URL))
+    parser.feed(getContent(TEST_URL))
     parser.close()
-#    body = parser.output()
+    body = parser.output()
     return json.dumps(body)
 
 def getContent(url):
