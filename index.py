@@ -5,7 +5,7 @@ from html_test import ProdInfoParser
 import re
 
 TEST_URL = r'http://www.yhd.com/ctg/s2/c33708-0/'
-SCRIPT_TAG = re.compile(r'<script[.\n\r]*</script>', re.IGNORECASE)
+SCRIPT_TAG = re.compile(r'<!%.*%!>', re.IGNORECASE)
 
 def app(environ, start_response):
     status = '200 OK'

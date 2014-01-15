@@ -13,7 +13,7 @@ class ProdInfoParser(SGMLParser):
         attrs = dict(attrs)
         #print attrs
         if attrs.get('productid') and attrs.get('yhdprice'):
-            print attrs
+            #print attrs
             productId = attrs.get('productid')
             if not self.products.get(productId):
                 self.products[productId] = {}
@@ -24,7 +24,7 @@ class ProdInfoParser(SGMLParser):
         attrs = dict(attrs)
         #print attrs
         if attrs.get('id') and attrs.get('pmid') and attrs.get('title'):
-            print attrs
+            #print attrs
             productId = attrs.get('id').split('_')[1]
             if not self.products.get(productId):
                 self.products[productId] = {}
@@ -33,21 +33,30 @@ class ProdInfoParser(SGMLParser):
 
     def output(self):
         return self.products
+
+#    def parse_declaration(self, i):
+#        SGMLParser.parse_declaration(self, i)
+#        return -1
     
 def test_run():
     parser = ProdInfoParser()
     f = open('yhd.html')
-    parser.feed(f.read())
+    c = f.read()
+ #   print c[:100]
+    parser.feed(c)
     f.close()
     d = parser.output()
+    print d
     for k, v in d.items():
-        net, unit = extract_data(v['title'])
-        unit_price = float(v['yhdprice']) / net * 500
-        print k
-        print v['title']
-        print "Unit price: ￥%.2f/500%s" % (unit_price, unit)
+        result = extract_data(v['title'])
+        if result:
+            net, unit = extract_data(v['title'])
+            unit_price = float(v['yhdprice']) / net * 500
+            print k
+            print v['title']
+            print "Unit price: ￥%.2f/500%s" % (unit_price, unit)
     #print data[:1000]
 
 if __name__ == "__main__":
     test_run()
-    print '中文'
+#    print '中文'
