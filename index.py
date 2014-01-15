@@ -28,7 +28,7 @@ def rmScript(c):
     m = SCRIPT_TAG.findall(c)
     if m:
         for e in m:
-            re.sub(SCRIPT_TAG, '', c)
+            c = re.sub(SCRIPT_TAG, '', c)
     return c
 
 from bae.core.wsgi import WSGIApplication
