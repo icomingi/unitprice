@@ -28,11 +28,11 @@ class ProdInfoParser(SGMLParser):
             productId = attrs.get('id').split('_')[1]
             if not self.products.get(productId):
                 self.products[productId] = {}
-            self.products[productId]['title'] = attrs.get('title')
+#            self.products[productId]['title'] = attrs.get('title')
             result = extract_data(attrs.get('title'))
             if result:
 #                net, unit = result
-                self.products[productId]['net'] = result
+                self.products[productId]['net'] = tuple(result)
                 
             #print self.products
 
