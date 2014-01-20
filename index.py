@@ -3,6 +3,7 @@ import json
 import urllib
 from html_test import ProdInfoParser
 import re
+import web
 
 from cgi import parse_qs, escape
 
@@ -23,6 +24,7 @@ def app(environ, start_response):
     parser.feed(rmScript(getContent(url)))
     parser.close()
     body = parser.output()
+    body['web'] = web.__version__
     return json.dumps(body)
 
 def getContent(url):
