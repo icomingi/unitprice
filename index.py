@@ -27,10 +27,10 @@ def app(environ, start_response):
     parser.close()
     body = parser.output()
     body['web'] = web.__version__
-    ff = webdriver.Firefox()
-    ff.get('http://www.baidu.com/')
-    dom = ff.execute_script('document.documentElement.innerHTML')
-    body['dom'] = dom
+#    ff = webdriver.Firefox()
+#    ff.get('http://www.baidu.com/')
+#    dom = ff.execute_script('document.documentElement.innerHTML')
+#    body['dom'] = dom
     return json.dumps(body)
 
 def getContent(url):
