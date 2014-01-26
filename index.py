@@ -1,7 +1,7 @@
 #-*- coding:utf-8 -*-
 import json
 import urllib
-from html_test import JdInfoParser, YhdInfoParser, ProdInfoParsero
+from html_test import JdInfoParser, YhdInfoParser, ProdInfoParser
 import re
 import web
 import urlparse
