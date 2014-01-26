@@ -1,9 +1,10 @@
 #-*- coding:utf-8 -*-
 import json
 import urllib
-from html_test import ProdInfoParser
+from html_test import JdInfoParser, YhdInfoParser, ProdInfoParsero
 import re
 import web
+import urlparse
 
 from cgi import parse_qs, escape
 
@@ -21,12 +22,17 @@ def app(environ, start_response):
     status = '200 OK'
     headers = [('Content-type', 'application/json')]
     start_response(status, headers)
-#    body = {'x': 11, 'y': 12, 'z': 13}
-    parser = ProdInfoParser()
+    url_parse_result = urlparse.urlparse(url)
+    if 'jd.com' in url_parse_result.netloc:
+        parser = JdInfoParser()
+    elif 'yhd.com' in url_parse_result.netloc:
+        parser = YhdInfoParser()
+    else:
+        parser = ProdInfoParser()
     parser.feed(rmScript(getContent(url)))
     parser.close()
     body = parser.output()
-    body['web'] = web.__version__
+#    body['web'] = web.__version__
 #    ff = webdriver.Firefox()
 #    ff.get('http://www.baidu.com/')
 #    dom = ff.execute_script('document.documentElement.innerHTML')

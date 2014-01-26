@@ -6,12 +6,13 @@ import unittest
 
 GRAM = re.compile(r"(([0-9]+\.?\d{0,3})(g|kg|克|千克|斤|升|毫升|l|ml)(\*([0-9]+))?)", re.IGNORECASE)
 
-NET = re.compile(r"(([0-9]+\.?\d{0,3})(g|kg|克|千克|斤|升|毫升|l|ml)(\*([0-9]+))?)", re.IGNORECASE)
+NET = re.compile(r"(([0-9]+\.?\d{0,3})(g|mg|kg|克|千克|斤|升|毫升|l|ml)(\s*[\*x]\s*([0-9]+))?)", re.IGNORECASE)
 
 GRAM_BONUS = re.compile(r"([0-9]+\.?\d{0,2}(g|kg|克|千克|斤))\+([0-9]+\.?\d{0,2}(g|kg|克|千克|斤))", re.IGNORECASE)
 LITRE = re.compile(r"([0-9]+\.?\d{0,2}(ml|l|毫升|升)(\*([0-9]+))?)", re.IGNORECASE)
 
 CONVERSION_TABLE = (('g', 'g', 1),
+                    ('mg', 'g', 0.001),
                     ('kg', 'g', 1000),
                     ('克', 'g', 1),
                     ('千克', 'g', 1000),
