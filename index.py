@@ -25,7 +25,7 @@ def app(environ, start_response):
     url_parse_result = urlparse.urlparse(url)
     if 'jd.com' in url_parse_result.netloc:
         parser = JdInfoParser()
-    elif 'yhd.com' in url_parse_result.netloc:
+    elif 'yhd.com' in url_parse_result.netloc and '/' != url_parse_result.path:
         parser = YhdInfoParser()
     else:
         parser = ProdInfoParser()
