@@ -82,7 +82,7 @@ class JdInfoParser(ProdInfoParser):
         if prices:
             for p in prices:
                 productId = p['id'][2:]
-                self.products[productId]['jd_price'] = p['p']
+                self.products[productId]['jdprice'] = p['p']
         return self.products
         
 #    def parse_declaration(self, i):
