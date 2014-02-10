@@ -46,6 +46,8 @@ class YhdInfoParser(ProdInfoParser):
             if result:
 #                net, unit = result
                 self.products[productId]['net'] = tuple(result)
+            else:
+                self.products[productId]['net'] = "not found"
 
 class JdInfoParser(ProdInfoParser):
     def reset(self):
@@ -68,6 +70,8 @@ class JdInfoParser(ProdInfoParser):
             result = extract_data(text)
             if result:
                 self.products[productId]['net'] = tuple(result)
+            else:
+                self.products[productId]['net'] = "not found"
 
     def output(self):
         skus = self.products.keys()
