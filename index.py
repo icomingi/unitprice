@@ -25,11 +25,14 @@ def app(environ, start_response):
     url_parse_result = urlparse.urlparse(url)
     if 'jd.com' in url_parse_result.netloc:
         parser = JdInfoParser()
-    elif 'yhd.com' in url_parse_result.netloc and '/' != url_parse_result.path:
+        page_source = getContent(url)
+    elif 'yhd.com' in url_parse_result.netloc:
         parser = YhdInfoParser()
+        page_source = rmScript(getContent(url))
+        page_source += getContent(url.replace('ctg/s2', 'ctg/searchPage'))
     else:
         parser = ProdInfoParser()
-    parser.feed(rmScript(getContent(url)))
+    parser.feed(page_source)
     parser.close()
     body = parser.output()
 #    body['web'] = web.__version__
@@ -46,10 +49,12 @@ def getContent(url):
     return c
 
 def rmScript(c):
-    m = SCRIPT_TAG.findall(c)
-    if m:
-        for e in m:
-            c = re.sub(SCRIPT_TAG, '', c)
+#    m = SCRIPT_TAG.findall(c)
+#    if m:
+#        for e in m:
+#            c = re.sub(SCRIPT_TAG, '', c)
+    c = c.replace('<!%', '')
+    c = c.replace('%!>', '')
     return c
 
 from bae.core.wsgi import WSGIApplication
