@@ -29,9 +29,10 @@ def app(environ, start_response):
     elif 'yhd.com' in url_parse_result.netloc:
         parser = YhdInfoParser()
         page_source = rmScript(getContent(url))
+        page_source = page_source.decode('utf-8')
         extra_products = getContent(url.replace('ctg/s2', 'ctg/searchPage'))
         products = json.loads(extra_products)
-        page_source += products.get('value').decode('utf-8')
+        page_source += products.get('value')
     else:
         parser = ProdInfoParser()
     parser.feed(page_source)
