@@ -31,7 +31,7 @@ def app(environ, start_response):
         page_source = rmScript(getContent(url))
         extra_products = getContent(url.replace('ctg/s2', 'ctg/searchPage'))
         products = json.loads(extra_products)
-        page_source += products.get('value')
+        page_source += products.get('value').decode('utf-8')
     else:
         parser = ProdInfoParser()
     parser.feed(page_source)
