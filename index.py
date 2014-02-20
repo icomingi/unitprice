@@ -35,6 +35,8 @@ def app(environ, start_response):
         extra_products = rmScript(getContent(url+'/?isGetMoreProducts=1'))
         products = json.loads(products)
         extra_products = json.loads(extra_products)
+        products = isinstance(products, unicode) and products.encode('utf-8') or products
+        extra_products = isinstance(extra_products, unicode) and extra_products.encode('utf-8') or extra_products
         page_source = products.get('value') + extra_products.get('value')
     else:
         parser = ProdInfoParser()
