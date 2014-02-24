@@ -6,6 +6,8 @@ import re
 import web
 import urlparse
 
+from flask import Flask, request, make_response
+
 from cgi import parse_qs, escape
 
 from selenium import webdriver
@@ -13,15 +15,21 @@ from selenium import webdriver
 TEST_URL = r'http://www.yhd.com/ctg/s2/c33708-0/'
 SCRIPT_TAG = re.compile(r'<!%.*%!>', re.IGNORECASE)
 
-def app(environ, start_response):
-    parameters = parse_qs(environ.get('QUERY_STRING', ''))
-    if 'url' in parameters:
-        url = escape(parameters['url'][0])
-    else:
-        url = TEST_URL
-    status = '200 OK'
-    headers = [('Content-type', 'application/json')]
-    start_response(status, headers)
+app = Flask(__name__)
+app.debug  = True
+
+
+@app.route('/')
+#def app(environ, start_response):
+def unit_price():
+#    parameters = parse_qs(environ.get('QUERY_STRING', ''))
+#    if 'url' in parameters:
+#        url = escape(parameters['url'][0])
+#    else:
+#        url = TEST_URL
+#    status = '200 OK'
+#    headers = [('Content-type', 'application/json')]
+#    start_response(status, headers)
     url_parse_result = urlparse.urlparse(url)
     if 'jd.com' in url_parse_result.netloc:
         parser = JdInfoParser()
@@ -49,7 +57,9 @@ def app(environ, start_response):
 #    ff.get('http://www.baidu.com/')
 #    dom = ff.execute_script('document.documentElement.innerHTML')
 #    body['dom'] = dom
-    return json.dumps(body)
+#    return json.dumps(body)
+    return (make_response(json.dumps(body)), '200 OK', {'Content-type': 'application/json'})
+
 
 def getContent(url):
     f = urllib.urlopen(url)
