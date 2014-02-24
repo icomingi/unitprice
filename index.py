@@ -30,6 +30,7 @@ def unit_price():
 #    status = '200 OK'
 #    headers = [('Content-type', 'application/json')]
 #    start_response(status, headers)
+    url = request.args.get('url', TEST_URL)
     url_parse_result = urlparse.urlparse(url)
     if 'jd.com' in url_parse_result.netloc:
         parser = JdInfoParser()
